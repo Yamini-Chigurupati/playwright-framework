@@ -1,13 +1,15 @@
-import { test, expect } from '@playwright/test';
+const { test, expect } = require('@playwright/test');
 
-test('Login page title validation', async ({ page }) => {
+test('Login functionality', async ({ page }) => {
 
-  await page.goto('https://www.saucedemo.com');
+  await page.goto('https://www.saucedemo.com/');
 
-  await expect(page).toHaveTitle('Swag Labs');
+  await page.locator('#user-name').fill('standard_user');
 
-  const title = await page.title();
+  await page.locator('#password').fill('secret_sauce');
 
-  console.log('Page title is:', title);
-await expect(page).toHaveURL('https://www.saucedemo.com/');
-console.log('Current URL is:', page.url());});
+  await page.locator('#login-button').click();
+
+  await expect(page).toHaveURL(/inventory/);
+
+});
