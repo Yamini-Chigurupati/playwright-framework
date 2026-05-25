@@ -1,15 +1,14 @@
 const { test, expect } = require('@playwright/test');
 
-test('Login functionality', async ({ page }) => {
+const LoginPage = require('../pages/LoginPage');
 
-  await page.goto('https://www.saucedemo.com/');
+test('Login functionality using POM', async ({ page }) => {
 
-  await page.locator('#user-name').fill('standard_user');
+    const loginPage = new LoginPage(page);
 
-  await page.locator('#password').fill('secret_sauce');
+    await loginPage.navigate();
 
-  await page.locator('#login-button').click();
+    await loginPage.login('standard_user', 'secret_sauce');
 
-  await expect(page).toHaveURL(/inventory/);
-
+    await expect(page).toHaveURL(/inventory/);
 });
