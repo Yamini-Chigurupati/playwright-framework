@@ -11,7 +11,6 @@ class LoginPage {
     async navigate() {
         await this.page.goto('https://www.saucedemo.com/');
     }
-
     async login(user, pass) {
         await this.page.locator(this.username).fill(user);
 
